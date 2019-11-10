@@ -1,5 +1,6 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import { Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux'
 
 import logo from '../../assets/logo.png'
 
@@ -14,12 +15,23 @@ import {
 
 import Background from '../../components/Background';
 
+import { signUpRequest } from '../../store/modules/auth/actions'
+
 export default function SignUp({ navigation }) {
+  const dispatch = useDispatch();
+
   const emailRef = useRef();
   const senhaRef = useRef();
 
-  function handleSubmit(){
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [passowrd, setPassowrd] = useState();
 
+  const loading = useSelector(state => state.auth.loading)
+
+
+  function handleSubmit(){
+    dispatch(signUpRequest(name, email, passowrd))
   };
 
   return (
@@ -34,6 +46,8 @@ export default function SignUp({ navigation }) {
             placeholder="Nome Completo"
             returnKeyType="next"
             onSubmitEditing={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
           />
           <FormInput
             icon="mail-outline"
@@ -44,6 +58,8 @@ export default function SignUp({ navigation }) {
             ref={emailRef}
             returnKeyType="next"
             onSubmitEditing={() => senhaRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
           />
           <FormInput
             icon="lock-outline"
@@ -52,14 +68,16 @@ export default function SignUp({ navigation }) {
             ref={senhaRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={passowrd}
+            onChangeText={setPassowrd}
           />
 
-          <SubmitButton onPress={() =>{}}>
-            Acessar
+          <SubmitButton onPress={handleSubmit}>
+            Cadastrar
           </SubmitButton>
         </Form>
 
-        <SignLink onPress={() =>{  navigation.navigate('SignIn') }}>
+        <SignLink loading={loading} onPress={() =>{  navigation.navigate('SignIn') }}>
           <SignText> Já possuo uma conta </SignText>
         </SignLink>
       </Container>
