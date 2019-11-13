@@ -9,10 +9,9 @@ export default function Appointment({ data }) {
     <Container>
       <Left>
         <Avatar
-          source={{
-            uri: data.provider.avatar
-            ? data.provider.avatar.url
-            : `https://api.adorable.io/avatar/50/${data.provider.name}.png` }}
+          source={{uri:
+              data.provider.avatar ? data.provider.avatar.url.replace('localhost', '192.168.1.4')
+            : `https://api.adorable.io/avatar/50/kkkkkk.png` }}
         />
 
         <Info >
