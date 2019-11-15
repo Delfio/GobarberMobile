@@ -7,6 +7,7 @@ import pt from 'date-fns/locale/pt';
 import Background from '../../../components/Background';
 
 import { Container, Avatar, Name, Time, SubmitButton } from './styles';
+import api from '../../../services/api';
 
 export default function Confirm({ navigation }) {
   const provider = navigation.getParam('provider');
@@ -17,7 +18,14 @@ export default function Confirm({ navigation }) {
     [time]
   );
 
-  async function handleAddAppointment() {}
+  async function handleAddAppointment() {
+    await api.post('appointments', {
+      provider_id: provider.id,
+      date: time,
+    });
+
+    navigation.navigate('Dashboard');
+  }
 
   return (
     <Background>

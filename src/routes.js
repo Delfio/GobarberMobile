@@ -36,6 +36,9 @@ export default (signedIn = false) =>
                 },
                 {
                   defaultNavigationOptions: {
+                    headerTitleContainerStyle: {
+                      justifyContent: 'center',
+                    },
                     headerLayoutPreset: 'center',
                     headerTransparent: true,
                     headerTintColor: '#fff',
@@ -61,6 +64,7 @@ export default (signedIn = false) =>
             Profile,
           },
           {
+            resetOnBlur: true,
             tabBarOptions: {
               keyboardHidesTabBar: true,
               activeTintColor: '#fff',
